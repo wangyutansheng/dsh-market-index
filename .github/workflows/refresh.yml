@@ -1,0 +1,39 @@
+name: Refresh market index
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install validator
+        working-directory: .validator
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i @deepseek-ai/dsh-plugin-market-index@0.2.1-rc.2 --no-audit --no-fund
+
+      - name: Build index
+        run: node build-index.mjs index.json
+
+      - name: Validate index
+        working-directory: .validator
+        run: node validate.mjs
+
+      - name: Publish
+        run: |
+          git config user.name "market-index-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.json
+          git commit --amend -m "index $(date -u +%FT%TZ)" >/dev/null
+          git push --force origin HEAD:main

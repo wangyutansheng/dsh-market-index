@@ -1,0 +1,5 @@
+_validate/
+node_modules/
+.validator/node_modules/
+.validator/package.json
+.validator/package-lock.json
