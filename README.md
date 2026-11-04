@@ -11,7 +11,10 @@ A [format-1 plugin market index](https://github.com/deepseek-ai/deepseek-harness
 
 ## Use it in dsh
 
-Plugins page 鈫?**Discover** 鈫?**Add index source** 鈫?paste the index URL above.
+Plugins page → **Discover** → **Add index source** → paste the index URL above.
+
+Because dsh reads the index with a plain `fetch` and sends no `Authorization` header, **this repository must stay
+public**: a private repository would answer 404 to dsh and the Discover page could not load the index.
 
 ## Files
 

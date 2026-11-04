@@ -3,3 +3,12 @@ node_modules/
 .validator/node_modules/
 .validator/package.json
 .validator/package-lock.json
+
+# 2026-11-04：本地备份/日志/截图/旧报告一律不进公开仓库
+*.bak-*
+VERIFY.md
+cb_prompt.txt
+cb_run.log
+win1.png
+完工报告_*.md
+_live_index.json
